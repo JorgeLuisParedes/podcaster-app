@@ -1,3 +1,10 @@
+import { HeaderBar } from '../components';
+
 export const EpisodePage = () => {
-	return <h1>EpisodePage</h1>;
+	return (
+		<>
+			<HeaderBar />
+			<h1>EpisodePage</h1>
+		</>
+	);
 };
