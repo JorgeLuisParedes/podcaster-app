@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client';
 
 import { PodcasterApp } from './PodcasterApp.jsx';
 import './styles.css';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<PodcasterApp />
+		<BrowserRouter>
+			<PodcasterApp />
+		</BrowserRouter>
 	</React.StrictMode>
 );

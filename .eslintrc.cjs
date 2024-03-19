@@ -35,5 +35,6 @@ module.exports = {
 			'warn',
 			{ allowConstantExport: true },
 		],
+		'import/export': 0,
 	},
 };
