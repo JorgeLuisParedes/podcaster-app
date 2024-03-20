@@ -1,6 +1,6 @@
 export const FilterSection = () => {
 	return (
-		<div className='flex justify-end mt-7 pe-4'>
+		<div className='flex justify-end pe-4'>
 			<span className='bg-blue-700 text-white text-base font-semibold me-2 px-4 py-1 rounded-full'>
 				100
 			</span>

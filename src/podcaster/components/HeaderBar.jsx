@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const HeaderBar = () => {
 	return (
-		<nav className='w-full py-2 px-4 border-b-2 flex justify-between'>
+		<nav className='w-full py-2 px-4 border-b-2 flex justify-between mb-7'>
 			<Link
 				className='font-sans text-2xl font-semibold text-blue-700'
 				to='/'>

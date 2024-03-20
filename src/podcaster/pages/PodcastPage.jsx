@@ -1,10 +1,13 @@
-import { HeaderBar } from '../components';
+import { HeaderBar, PodcastDetails } from '../components';
 
 export const PodcastPage = () => {
 	return (
 		<>
 			<HeaderBar />
-			<h1>PodcastPage</h1>
+			<div className='flex'>
+				<PodcastDetails />
+				<section className='w-4/5 h-screen bg-slate-500'></section>
+			</div>
 		</>
 	);
 };

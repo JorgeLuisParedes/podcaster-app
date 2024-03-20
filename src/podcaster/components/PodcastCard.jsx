@@ -68,7 +68,7 @@ export const PodcastCard = () => {
 		<>
 			{people.map(person => (
 				<Link
-					to='#'
+					to={`/podcast/${person.id}`}
 					key={person.id}
 					className='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow mb-10 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-slate-50 duration-10'>
 					<div className='flex flex-col items-center pb-6'>
