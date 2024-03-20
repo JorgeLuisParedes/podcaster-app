@@ -36,5 +36,6 @@ module.exports = {
 			{ allowConstantExport: true },
 		],
 		'import/export': 0,
+		"react/no-unescaped-entities": 'off'
 	},
 };
