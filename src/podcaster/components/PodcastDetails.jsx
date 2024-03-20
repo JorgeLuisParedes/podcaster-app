@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const PodcastDetails = () => {
 	const podcast = {
 		titulo: 'The Joe Budden Podcast - The Joe Budden Network',
@@ -10,14 +12,22 @@ export const PodcastDetails = () => {
 		<>
 			<aside className='w-1/5'>
 				<div className='w-9/12 border border-gray-200 mx-auto py-5 px-3 rounded-md shadow'>
-					<img
-						className='mx-auto rounded-md'
-						src={podcast.imagen}
-						alt=''
-					/>
+					<Link to={`/podcast/1`}>
+						<img
+							className='mx-auto rounded-md'
+							src={podcast.imagen}
+							alt=''
+						/>
+					</Link>
 					<hr className='my-5' />
-					<h2 className='text-md font-semibold'>{podcast.titulo}</h2>
-					<p className='text-md italic'>by: {podcast.autor}</p>
+					<Link to={`/podcast/1`}>
+						<h2 className='text-md font-semibold'>
+							{podcast.titulo}
+						</h2>
+					</Link>
+					<Link to={`/podcast/1`}>
+						<p className='text-md italic'>by: {podcast.autor}</p>
+					</Link>
 					<hr className='my-5' />
 					<h3 className='text-sm font-semibold'>Description:</h3>
 					<p className='text-sm italic'>{podcast.descripcion}</p>
