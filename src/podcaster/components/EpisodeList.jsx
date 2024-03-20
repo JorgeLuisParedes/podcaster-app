@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const EpisodeList = () => {
 	const episodes = [
 		{
@@ -58,11 +60,12 @@ export const EpisodeList = () => {
 										<th
 											scope='row'
 											className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap'>
-											<a
-												href='#'
-												className='text-blue-600 hover:underline'>
+											<Link
+												to={'/podcast/1/episode/1'}
+												className='text-blue-600
+												hover:underline'>
 												{episode.name}
-											</a>
+											</Link>
 										</th>
 										<td className='px-6 py-4'>
 											{episode.date}

@@ -1,3 +1,4 @@
+export * from './EpisodeDetails';
 export * from './EpisodeList';
 export * from './FilterSection';
 export * from './HeaderBar';
