@@ -1,8 +1,10 @@
-export const FilterSection = () => {
+import PropTypes from 'prop-types';
+
+export const FilterSection = ({ totalPodcast }) => {
 	return (
 		<div className='flex justify-end pe-4'>
 			<span className='bg-blue-700 text-white text-base font-semibold me-2 px-4 py-1 rounded-full'>
-				100
+				{totalPodcast}
 			</span>
 			<div className='relative w-72'>
 				<form className=''>
@@ -16,4 +18,12 @@ export const FilterSection = () => {
 			</div>
 		</div>
 	);
+};
+
+FilterSection.propTypes = {
+	totalPodcast: PropTypes.number.isRequired,
+};
+
+FilterSection.defaultProps = {
+	totalPodcast: 100,
 };

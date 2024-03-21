@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { Bars } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 
-export const HeaderBar = () => {
+export const HeaderBar = ({ isLoading }) => {
 	return (
 		<nav className='w-full py-2 px-4 border-b-2 flex justify-between mb-7'>
 			<Link
@@ -14,8 +15,16 @@ export const HeaderBar = () => {
 				width='30'
 				color='#1d4ed8'
 				ariaLabel='bars-loading'
-				visible={false}
+				visible={isLoading}
 			/>
 		</nav>
 	);
+};
+
+HeaderBar.propTypes = {
+	isLoading: PropTypes.bool.isRequired,
+};
+
+HeaderBar.defaultProps = {
+	isLoading: false,
 };
