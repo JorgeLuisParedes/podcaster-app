@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export const podcasterSlice = createSlice({
 	name: 'podcaster',
 	initialState: {
+		isLoading: false,
 		podcasts: [],
-		isLoading: false
+		filteredPodcasts: [],
+		searchText: ''
 	},
 	reducers: {
 		startLoadingPodcast: (state, /* action */) => {
@@ -13,9 +15,16 @@ export const podcasterSlice = createSlice({
 		setPodcasts: (state, action) => {
 			state.isLoading = false;
 			state.podcasts = action.payload.podcasts;
+			state.filteredPodcasts = action.payload.podcasts;
+		},
+		filterPodcasts: (state, action) => {
+			state.searchText = action.payload;
+			state.filteredPodcasts = state.podcasts.filter(podcast =>
+				podcast.title.toLowerCase().includes(state.searchText.toLowerCase()) ||
+				podcast.artist.toLowerCase().includes(state.searchText.toLowerCase())
+			);
 		}
 	}
 });
 
-// Action creators are generated for each case reducer function
-export const { startLoadingPodcast, setPodcasts } = podcasterSlice.actions;
+export const { startLoadingPodcast, setPodcasts, filterPodcasts } = podcasterSlice.actions;

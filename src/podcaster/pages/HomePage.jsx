@@ -5,7 +5,9 @@ import { getPodcast } from '../../store';
 
 export const HomePage = () => {
 	const dispatch = useDispatch();
-	const { isLoading, podcasts } = useSelector(state => state.podcaster);
+	const { isLoading, filteredPodcasts } = useSelector(
+		state => state.podcaster
+	);
 
 	useEffect(() => {
 		dispatch(getPodcast());
@@ -14,8 +16,8 @@ export const HomePage = () => {
 	return (
 		<>
 			<HeaderBar isLoading={isLoading} />
-			<FilterSection totalPodcast={podcasts.length} />
-			<PodcastList podcasts={podcasts} />
+			<FilterSection totalPodcast={filteredPodcasts.length} />
+			<PodcastList podcasts={filteredPodcasts} />
 		</>
 	);
 };
