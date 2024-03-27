@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { formatDate, formatTime } from '../helpers';
 
 export const EpisodeRows = ({ episodes }) => {
 	return (
@@ -17,8 +18,8 @@ export const EpisodeRows = ({ episodes }) => {
 							{episode.title}
 						</Link>
 					</th>
-					<td className='px-6 py-4'>{episode.date}</td>
-					<td className='px-6 py-4'>{episode.time}</td>
+					<td className='px-6 py-4'>{formatDate(episode.date)}</td>
+					<td className='px-6 py-4'>{formatTime(episode.time)}</td>
 				</tr>
 			))}
 		</>

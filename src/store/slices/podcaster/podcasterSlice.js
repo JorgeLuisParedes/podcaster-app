@@ -33,7 +33,10 @@ export const podcasterSlice = createSlice({
 			state.isLoading = false;
 			state.episodes = action.payload;
 		},
+		clearEpisodes: (state) => {
+			state.episodes = []
+		}
 	}
 });
 
-export const { startLoadingPodcast, setPodcasts, filterPodcasts, podcastDetails, setEpisodes } = podcasterSlice.actions;
+export const { startLoadingPodcast, setPodcasts, filterPodcasts, podcastDetails, setEpisodes, clearEpisodes } = podcasterSlice.actions;

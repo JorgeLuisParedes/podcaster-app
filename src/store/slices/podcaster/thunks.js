@@ -1,5 +1,5 @@
 import { episodeApi, podcastApi } from "../../../api";
-import { podcastDetails, setEpisodes, setPodcasts, startLoadingPodcast } from "./podcasterSlice";
+import { clearEpisodes, podcastDetails, setEpisodes, setPodcasts, startLoadingPodcast } from "./podcasterSlice";
 
 export const getPodcast = () => {
 	return async (dispatch, getState) => {
@@ -7,7 +7,6 @@ export const getPodcast = () => {
 		const now = new Date().getTime();
 
 		if (lastFetched && now - lastFetched < 24 * 60 * 60 * 1000) {
-			// if (lastFetched && now - lastFetched < 1000) {
 			const storedPodcasts = localStorage.getItem("podcasts");
 			if (storedPodcasts) {
 				dispatch(setPodcasts({ podcasts: JSON.parse(storedPodcasts) }));
@@ -51,29 +50,37 @@ export const getEspisode = (podcastId) => {
 	return async (dispatch, getState) => {
 		dispatch(startLoadingPodcast());
 		dispatch(podcastDetails(podcastId));
+		dispatch(clearEpisodes());
 
-		const { data } = await episodeApi.get(
-			`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`,
-		);
-		const { results } = JSON.parse(data.contents);
-		const [, ...episodes] = results;
+		const storedDataJSON = localStorage.getItem(`podcast_${podcastId}`);
+		const storedData = storedDataJSON ? JSON.parse(storedDataJSON) : null;
+		const currentTime = new Date().getTime();
 
-		const transformData = (episodes) => {
-			return episodes.map(item => {
+		if (storedData && currentTime - storedData.timestamp < 24 * 60 * 60 * 1000) {
+			dispatch(setEpisodes(storedData.episodes));
+		} else {
 
-				return {
-					id: item.trackId,
-					title: item.trackName,
-					date: item.releaseDate,
-					time: item.trackTimeMillis,
-					description: item.description,
-					url: item.trackViewUrl
-				};
-			});
-		};
-		const episodeList = transformData(episodes);
+			const { data } = await episodeApi.get(
+				`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`
+			);
+			const { results } = JSON.parse(data.contents);
+			const [, ...episodes] = results;
 
-		dispatch(setEpisodes(episodeList));
+			const episodeList = episodes.map(item => ({
+				id: item.trackId,
+				title: item.trackName,
+				date: item.releaseDate,
+				time: item.trackTimeMillis,
+				description: item.description,
+				url: item.trackViewUrl
+			}));
 
-	}
-}
+			localStorage.setItem(`podcast_${podcastId}`, JSON.stringify({
+				timestamp: currentTime,
+				episodes: episodeList
+			}));
+
+			dispatch(setEpisodes(episodeList));
+		}
+	};
+};

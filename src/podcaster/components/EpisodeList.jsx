@@ -15,13 +15,19 @@ export const EpisodeList = ({ episodes }) => {
 						<table className='w-full text-sm text-left text-gray-500'>
 							<thead className='text-xs text-gray-700 uppercase bg-gray-50'>
 								<tr>
-									<th scope='col' className='px-6 py-3'>
+									<th
+										scope='col'
+										className='px-6 py-3 w-9/12'>
 										Title
 									</th>
-									<th scope='col' className='px-6 py-3'>
+									<th
+										scope='col'
+										className='px-6 py-3 w-2/12'>
 										Date
 									</th>
-									<th scope='col' className='px-6 py-3'>
+									<th
+										scope='col'
+										className='px-6 py-3 w-1/12'>
 										Duration
 									</th>
 								</tr>
