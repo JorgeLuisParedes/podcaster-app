@@ -1,38 +1,46 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export const PodcastDetails = () => {
-	const podcast = {
-		titulo: 'The Joe Budden Podcast - The Joe Budden Network',
-		autor: 'The Joe Budden Network',
-		imagen: 'https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png',
-		descripcion:
-			'Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends.',
-	};
+export const PodcastDetails = ({ id, imagen, title, artist, description }) => {
 	return (
 		<>
 			<aside className='w-1/5'>
 				<div className='w-9/12 border border-gray-200 mx-auto py-5 px-3 rounded-md shadow'>
-					<Link to={`/podcast/1`}>
+					<Link to={`/podcast/${id}`}>
 						<img
 							className='mx-auto rounded-md'
-							src={podcast.imagen}
+							src={imagen}
 							alt=''
 						/>
 					</Link>
 					<hr className='my-5' />
-					<Link to={`/podcast/1`}>
-						<h2 className='text-md font-semibold'>
-							{podcast.titulo}
-						</h2>
+					<Link to={`/podcast/${id}`}>
+						<h2 className='text-md font-semibold'>{title}</h2>
 					</Link>
-					<Link to={`/podcast/1`}>
-						<p className='text-md italic'>by: {podcast.autor}</p>
+					<Link to={`/podcast/${id}`}>
+						<p className='text-md italic'>by: {artist}</p>
 					</Link>
 					<hr className='my-5' />
 					<h3 className='text-sm font-semibold'>Description:</h3>
-					<p className='text-sm italic'>{podcast.descripcion}</p>
+					<p className='text-sm italic'>{description}</p>
 				</div>
 			</aside>
 		</>
 	);
+};
+
+PodcastDetails.propTypes = {
+	id: PropTypes.string.isRequired,
+	imagen: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	artist: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+};
+
+PodcastDetails.defaultProps = {
+	id: '',
+	imagen: '',
+	title: '',
+	artist: '',
+	description: '',
 };

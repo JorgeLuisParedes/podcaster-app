@@ -5,13 +5,13 @@ export const PodcastList = ({ podcasts }) => {
 	return (
 		<section className='mt-7 px-4 w-full pt-10'>
 			<div className='grid grid-cols-4 gap-4'>
-				{podcasts.map(podcast => (
+				{podcasts.map(({ id, imagen, title, artist, description }) => (
 					<PodcastCard
-						key={podcast.id}
-						id={podcast.id}
-						imagen={podcast.imagen}
-						title={podcast.title}
-						artist={podcast.artist}
+						key={id}
+						id={id}
+						imagen={imagen}
+						title={title}
+						artist={artist}
 					/>
 				))}
 			</div>
@@ -26,6 +26,7 @@ PodcastList.propTypes = {
 			imagen: PropTypes.string.isRequired,
 			title: PropTypes.string.isRequired,
 			artist: PropTypes.string.isRequired,
+			description: PropTypes.string.isRequired,
 		})
 	).isRequired,
 };

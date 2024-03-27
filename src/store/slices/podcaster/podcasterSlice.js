@@ -6,7 +6,9 @@ export const podcasterSlice = createSlice({
 		isLoading: false,
 		podcasts: [],
 		filteredPodcasts: [],
-		searchText: ''
+		searchText: '',
+		podcastDetails: {},
+		episodes: []
 	},
 	reducers: {
 		startLoadingPodcast: (state, /* action */) => {
@@ -23,8 +25,15 @@ export const podcasterSlice = createSlice({
 				podcast.title.toLowerCase().includes(state.searchText.toLowerCase()) ||
 				podcast.artist.toLowerCase().includes(state.searchText.toLowerCase())
 			);
-		}
+		},
+		podcastDetails: (state, action) => {
+			state.podcastDetails = state.podcasts.find(podcast => podcast.id === action.payload);
+		},
+		setEpisodes: (state, action) => {
+			state.isLoading = false;
+			state.episodes = action.payload;
+		},
 	}
 });
 
-export const { startLoadingPodcast, setPodcasts, filterPodcasts } = podcasterSlice.actions;
+export const { startLoadingPodcast, setPodcasts, filterPodcasts, podcastDetails, setEpisodes } = podcasterSlice.actions;
