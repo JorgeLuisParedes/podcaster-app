@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { EpisodeRows } from './EpisodeRows';
 
-export const EpisodeList = ({ episodes }) => {
+export const EpisodeList = ({ podcastId, episodes }) => {
 	return (
 		<>
 			<section className='w-4/5'>
@@ -33,7 +33,10 @@ export const EpisodeList = ({ episodes }) => {
 								</tr>
 							</thead>
 							<tbody>
-								<EpisodeRows episodes={episodes} />
+								<EpisodeRows
+									podcastId={podcastId}
+									episodes={episodes}
+								/>
 							</tbody>
 						</table>
 					</div>
@@ -44,6 +47,7 @@ export const EpisodeList = ({ episodes }) => {
 };
 
 EpisodeList.propTypes = {
+	podcastId: PropTypes.number.isRequired,
 	episodes: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.number.isRequired,

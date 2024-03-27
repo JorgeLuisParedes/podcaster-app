@@ -26,7 +26,7 @@ export const PodcastPage = () => {
 					artist={podcastDetails.artist}
 					description={podcastDetails.description}
 				/>
-				<EpisodeList episodes={episodes} />
+				<EpisodeList podcastId={podcastId} episodes={episodes} />
 			</div>
 		</>
 	);
