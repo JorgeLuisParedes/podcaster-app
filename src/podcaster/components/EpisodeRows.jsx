@@ -29,7 +29,7 @@ export const EpisodeRows = ({ podcastId, episodes }) => {
 };
 
 EpisodeRows.propTypes = {
-	podcastId: PropTypes.number.isRequired,
+	podcastId: PropTypes.string.isRequired,
 	episodes: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])

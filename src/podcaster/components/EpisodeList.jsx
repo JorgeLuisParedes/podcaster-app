@@ -47,7 +47,7 @@ export const EpisodeList = ({ podcastId, episodes }) => {
 };
 
 EpisodeList.propTypes = {
-	podcastId: PropTypes.number.isRequired,
+	podcastId: PropTypes.string.isRequired,
 	episodes: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.number.isRequired,
