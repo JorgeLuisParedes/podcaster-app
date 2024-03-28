@@ -1,19 +1,5 @@
 import PropTypes from 'prop-types';
-
-const processDescription = description => {
-	const urlRegex =
-		/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|]|(\b[\w.-]*\.(com|net|fm)\b[\w/-]*))/gi;
-
-	const htmlDescription = description.replace(urlRegex, url => {
-		const href = url.startsWith('http') ? url : `http://${url}`;
-		return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-700">${url}</a>`;
-	});
-
-	return htmlDescription
-		.split(/\\n\\n|\\n|\n/)
-		.map(paragraph => `<p class="mb-2">${paragraph}</p>`)
-		.join('');
-};
+import { formatDescription } from '../helpers';
 
 export const EpisodeDetails = ({ title, description, url }) => {
 	return (
@@ -22,7 +8,7 @@ export const EpisodeDetails = ({ title, description, url }) => {
 				<h2 className='text-2xl font-semibold mb-4'>{title}</h2>
 				<div
 					dangerouslySetInnerHTML={{
-						__html: processDescription(description),
+						__html: formatDescription(description),
 					}}
 				/>
 				<audio controls className='w-full mt-4'>
