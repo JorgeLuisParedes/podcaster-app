@@ -72,7 +72,7 @@ export const getEspisode = (podcastId) => {
 				date: item.releaseDate,
 				time: item.trackTimeMillis,
 				description: item.description,
-				url: item.trackViewUrl
+				url: item.episodeUrl
 			}));
 
 			localStorage.setItem(`podcast_${podcastId}`, JSON.stringify({
