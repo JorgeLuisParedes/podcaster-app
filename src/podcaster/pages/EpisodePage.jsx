@@ -1,19 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { EpisodeDetails, HeaderBar, PodcastDetails } from '../components';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getEpisode } from '../../store';
 
 export const EpisodePage = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { podcastId, episodeId } = useParams();
 	const { podcastDetails, episodes } = useSelector(state => state.podcaster);
 
 	useEffect(() => {
-		dispatch(getEpisode(podcastId));
+		dispatch(getEpisode(podcastId)).catch(error => {
+			console.error(error.message);
+			navigate('/not-found-page', { replace: true });
+		});
 	}, []);
 
 	const episode = episodes.find(ep => ep.id.toString() === episodeId);
+	useEffect(() => {
+		if (!episode) {
+			console.error('Episode not found');
+			navigate('/not-found-page', { replace: true });
+		}
+	}, [episode, navigate]);
 	return (
 		<>
 			<HeaderBar />

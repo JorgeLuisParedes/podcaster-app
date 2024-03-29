@@ -51,6 +51,13 @@ export const getEpisode = (podcastId) => {
 		dispatch(startLoadingPodcast());
 
 		const { podcaster } = getState('podcaster');
+		const podcastExists = podcaster.podcasts.some(podcast => podcast.id === podcastId) ||
+			JSON.parse(localStorage.getItem("podcasts") || "[]").some(podcast => podcast.id === podcastId);
+
+		if (!podcastExists) {
+			throw new Error('Podcast not found');
+		}
+
 		if (podcaster.podcasts.length === 0) {
 			const savedPodcasts = JSON.parse(localStorage.getItem("podcasts"));
 			dispatch(setPodcasts({ podcasts: savedPodcasts }));
@@ -66,28 +73,31 @@ export const getEpisode = (podcastId) => {
 		if (storedData && currentTime - storedData.timestamp < 24 * 60 * 60 * 1000) {
 			dispatch(setEpisodes(storedData.episodes));
 		} else {
+			try {
+				const { data } = await episodeApi.get(
+					`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`
+				);
+				const { results } = JSON.parse(data.contents);
+				const [, ...episodes] = results;
 
-			const { data } = await episodeApi.get(
-				`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`
-			);
-			const { results } = JSON.parse(data.contents);
-			const [, ...episodes] = results;
+				const episodeList = episodes.map(item => ({
+					id: item.trackId,
+					title: item.trackName,
+					date: item.releaseDate,
+					time: item.trackTimeMillis,
+					description: item.description,
+					url: item.episodeUrl
+				}));
 
-			const episodeList = episodes.map(item => ({
-				id: item.trackId,
-				title: item.trackName,
-				date: item.releaseDate,
-				time: item.trackTimeMillis,
-				description: item.description,
-				url: item.episodeUrl
-			}));
+				localStorage.setItem(`podcast_${podcastId}`, JSON.stringify({
+					timestamp: currentTime,
+					episodes: episodeList
+				}));
 
-			localStorage.setItem(`podcast_${podcastId}`, JSON.stringify({
-				timestamp: currentTime,
-				episodes: episodeList
-			}));
-
-			dispatch(setEpisodes(episodeList));
+				dispatch(setEpisodes(episodeList));
+			} catch (error) {
+				console.error("Error fetching episodes: ", error);
+			}
 		}
 	};
 };
