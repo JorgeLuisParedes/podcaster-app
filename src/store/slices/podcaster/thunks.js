@@ -49,6 +49,13 @@ export const getPodcast = () => {
 export const getEpisode = (podcastId) => {
 	return async (dispatch, getState) => {
 		dispatch(startLoadingPodcast());
+
+		const { podcaster } = getState('podcaster');
+		if (podcaster.podcasts.length === 0) {
+			const savedPodcasts = JSON.parse(localStorage.getItem("podcasts"));
+			dispatch(setPodcasts({ podcasts: savedPodcasts }));
+		}
+
 		dispatch(setPodcastDetails(podcastId));
 		dispatch(clearEpisodes());
 
