@@ -10,7 +10,7 @@ export const EpisodeList = ({ podcastId, episodes }) => {
 						Episodes: {episodes.length}
 					</h2>
 				</div>
-				<div className='w-11/12 mx-auto py-7 px-3 border border-gray-200 rounded-md shadow'>
+				<div className='w-11/12 mx-auto py-7 px-3 border border-gray-200 rounded-md shadow mb-7'>
 					<div className='relative overflow-x-auto'>
 						<table className='w-full text-sm text-left text-gray-500'>
 							<thead className='text-xs text-gray-700 uppercase bg-gray-50'>
