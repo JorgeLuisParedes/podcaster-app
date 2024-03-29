@@ -38,6 +38,7 @@ module.exports = {
 		'import/export': 0,
 		'react/no-unescaped-entities': 'off',
 		'react-hooks/exhaustive-deps': 'off',
-		'no-unused-vars': 'off'
+		'no-unused-vars': 'off',
+		'no-undef': 'off'
 	},
 };
