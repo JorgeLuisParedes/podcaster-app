@@ -26,7 +26,7 @@ export const podcasterSlice = createSlice({
 				podcast.artist.toLowerCase().includes(state.searchText.toLowerCase())
 			);
 		},
-		podcastDetails: (state, action) => {
+		setPodcastDetails: (state, action) => {
 			state.podcastDetails = state.podcasts.find(podcast => podcast.id === action.payload);
 		},
 		setEpisodes: (state, action) => {
@@ -39,4 +39,4 @@ export const podcasterSlice = createSlice({
 	}
 });
 
-export const { startLoadingPodcast, setPodcasts, filterPodcasts, podcastDetails, setEpisodes, clearEpisodes } = podcasterSlice.actions;
+export const { startLoadingPodcast, setPodcasts, filterPodcasts, setPodcastDetails, setEpisodes, clearEpisodes } = podcasterSlice.actions;

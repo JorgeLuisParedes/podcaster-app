@@ -1,5 +1,5 @@
 import { episodeApi, podcastApi } from "../../../api";
-import { clearEpisodes, podcastDetails, setEpisodes, setPodcasts, startLoadingPodcast } from "./podcasterSlice";
+import { clearEpisodes, setPodcastDetails, setEpisodes, setPodcasts, startLoadingPodcast } from "./podcasterSlice";
 
 export const getPodcast = () => {
 	return async (dispatch, getState) => {
@@ -46,10 +46,10 @@ export const getPodcast = () => {
 	}
 };
 
-export const getEspisode = (podcastId) => {
+export const getEpisode = (podcastId) => {
 	return async (dispatch, getState) => {
 		dispatch(startLoadingPodcast());
-		dispatch(podcastDetails(podcastId));
+		dispatch(setPodcastDetails(podcastId));
 		dispatch(clearEpisodes());
 
 		const storedDataJSON = localStorage.getItem(`podcast_${podcastId}`);

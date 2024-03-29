@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { EpisodeList, HeaderBar, PodcastDetails } from '../components';
-import { getEspisode } from '../../store';
+import { getEpisode } from '../../store';
 
 export const PodcastPage = () => {
 	const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const PodcastPage = () => {
 	);
 
 	useEffect(() => {
-		dispatch(getEspisode(podcastId));
+		dispatch(getEpisode(podcastId));
 	}, []);
 
 	return (
