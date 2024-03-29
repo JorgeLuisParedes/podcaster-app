@@ -36,7 +36,3 @@ export const FilterSection = ({ totalPodcast }) => {
 FilterSection.propTypes = {
 	totalPodcast: PropTypes.number.isRequired,
 };
-
-FilterSection.defaultProps = {
-	totalPodcast: 100,
-};
