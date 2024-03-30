@@ -8,10 +8,10 @@ export const podcasterSlice = createSlice({
 		filteredPodcasts: [],
 		searchText: '',
 		podcastDetails: {},
-		episodes: []
+		episodes: [],
 	},
 	reducers: {
-		startLoadingPodcast: (state, /* action */) => {
+		startLoadingPodcast: state => {
 			state.isLoading = true;
 		},
 		setPodcasts: (state, action) => {
@@ -21,22 +21,36 @@ export const podcasterSlice = createSlice({
 		},
 		filterPodcasts: (state, action) => {
 			state.searchText = action.payload;
-			state.filteredPodcasts = state.podcasts.filter(podcast =>
-				podcast.title.toLowerCase().includes(state.searchText.toLowerCase()) ||
-				podcast.artist.toLowerCase().includes(state.searchText.toLowerCase())
+			state.filteredPodcasts = state.podcasts.filter(
+				podcast =>
+					podcast.title
+						.toLowerCase()
+						.includes(state.searchText.toLowerCase()) ||
+					podcast.artist
+						.toLowerCase()
+						.includes(state.searchText.toLowerCase())
 			);
 		},
 		setPodcastDetails: (state, action) => {
-			state.podcastDetails = state.podcasts.find(podcast => podcast.id === action.payload);
+			state.podcastDetails = state.podcasts.find(
+				podcast => podcast.id === action.payload
+			);
 		},
 		setEpisodes: (state, action) => {
 			state.isLoading = false;
 			state.episodes = action.payload;
 		},
-		clearEpisodes: (state) => {
-			state.episodes = []
-		}
-	}
+		clearEpisodes: state => {
+			state.episodes = [];
+		},
+	},
 });
 
-export const { startLoadingPodcast, setPodcasts, filterPodcasts, setPodcastDetails, setEpisodes, clearEpisodes } = podcasterSlice.actions;
+export const {
+	startLoadingPodcast,
+	setPodcasts,
+	filterPodcasts,
+	setPodcastDetails,
+	setEpisodes,
+	clearEpisodes,
+} = podcasterSlice.actions;

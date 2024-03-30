@@ -39,6 +39,6 @@ module.exports = {
 		'react/no-unescaped-entities': 'off',
 		'react-hooks/exhaustive-deps': 'off',
 		'no-unused-vars': 'off',
-		'no-undef': 'off'
+		'no-undef': 'off',
 	},
 };

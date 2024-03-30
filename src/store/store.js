@@ -3,6 +3,6 @@ import { podcasterSlice } from './slices';
 
 export const store = configureStore({
 	reducer: {
-		podcaster: podcasterSlice.reducer
+		podcaster: podcasterSlice.reducer,
 	},
 });

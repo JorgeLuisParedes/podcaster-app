@@ -1,13 +1,19 @@
-import { episodeApi, podcastApi } from "../../../api";
-import { clearEpisodes, setPodcastDetails, setEpisodes, setPodcasts, startLoadingPodcast } from "./podcasterSlice";
+import { episodeApi, podcastApi } from '../../../api';
+import {
+	clearEpisodes,
+	setPodcastDetails,
+	setEpisodes,
+	setPodcasts,
+	startLoadingPodcast,
+} from './podcasterSlice';
 
 export const getPodcast = () => {
 	return async (dispatch, getState) => {
-		const lastFetched = localStorage.getItem("lastFetched");
+		const lastFetched = localStorage.getItem('lastFetched');
 		const now = new Date().getTime();
 
 		if (lastFetched && now - lastFetched < 24 * 60 * 60 * 1000) {
-			const storedPodcasts = localStorage.getItem("podcasts");
+			const storedPodcasts = localStorage.getItem('podcasts');
 			if (storedPodcasts) {
 				dispatch(setPodcasts({ podcasts: JSON.parse(storedPodcasts) }));
 			}
@@ -19,10 +25,13 @@ export const getPodcast = () => {
 		try {
 			const { data } = await podcastApi.get();
 			const dataApi = data.feed.entry;
-			const transformData = (dataApi) => {
+			const transformData = dataApi => {
 				return dataApi.map(item => {
 					const largeImage = item['im:image'].sort((a, b) => {
-						return parseInt(b.attributes.height) - parseInt(a.attributes.height);
+						return (
+							parseInt(b.attributes.height) -
+							parseInt(a.attributes.height)
+						);
 					})[0].label;
 
 					return {
@@ -30,36 +39,39 @@ export const getPodcast = () => {
 						title: item['im:name'].label,
 						artist: item['im:artist'].label,
 						description: item.summary.label,
-						imagen: largeImage
+						imagen: largeImage,
 					};
 				});
 			};
 			const podcastList = transformData(dataApi);
 
-			localStorage.setItem("podcasts", JSON.stringify(podcastList));
-			localStorage.setItem("lastFetched", now.toString());
+			localStorage.setItem('podcasts', JSON.stringify(podcastList));
+			localStorage.setItem('lastFetched', now.toString());
 
 			dispatch(setPodcasts({ podcasts: podcastList }));
 		} catch (error) {
-			console.error("Error fetching podcasts: ", error);
+			console.error('Error fetching podcasts: ', error);
 		}
-	}
+	};
 };
 
-export const getEpisode = (podcastId) => {
+export const getEpisode = podcastId => {
 	return async (dispatch, getState) => {
 		dispatch(startLoadingPodcast());
 
 		const { podcaster } = getState('podcaster');
-		const podcastExists = podcaster.podcasts.some(podcast => podcast.id === podcastId) ||
-			JSON.parse(localStorage.getItem("podcasts") || "[]").some(podcast => podcast.id === podcastId);
+		const podcastExists =
+			podcaster.podcasts.some(podcast => podcast.id === podcastId) ||
+			JSON.parse(localStorage.getItem('podcasts') || '[]').some(
+				podcast => podcast.id === podcastId
+			);
 
 		if (!podcastExists) {
 			throw new Error('Podcast not found');
 		}
 
 		if (podcaster.podcasts.length === 0) {
-			const savedPodcasts = JSON.parse(localStorage.getItem("podcasts"));
+			const savedPodcasts = JSON.parse(localStorage.getItem('podcasts'));
 			dispatch(setPodcasts({ podcasts: savedPodcasts }));
 		}
 
@@ -70,7 +82,10 @@ export const getEpisode = (podcastId) => {
 		const storedData = storedDataJSON ? JSON.parse(storedDataJSON) : null;
 		const currentTime = new Date().getTime();
 
-		if (storedData && currentTime - storedData.timestamp < 24 * 60 * 60 * 1000) {
+		if (
+			storedData &&
+			currentTime - storedData.timestamp < 24 * 60 * 60 * 1000
+		) {
 			dispatch(setEpisodes(storedData.episodes));
 		} else {
 			try {
@@ -86,17 +101,20 @@ export const getEpisode = (podcastId) => {
 					date: item.releaseDate,
 					time: item.trackTimeMillis,
 					description: item.description,
-					url: item.episodeUrl
+					url: item.episodeUrl,
 				}));
 
-				localStorage.setItem(`podcast_${podcastId}`, JSON.stringify({
-					timestamp: currentTime,
-					episodes: episodeList
-				}));
+				localStorage.setItem(
+					`podcast_${podcastId}`,
+					JSON.stringify({
+						timestamp: currentTime,
+						episodes: episodeList,
+					})
+				);
 
 				dispatch(setEpisodes(episodeList));
 			} catch (error) {
-				console.error("Error fetching episodes: ", error);
+				console.error('Error fetching episodes: ', error);
 			}
 		}
 	};
