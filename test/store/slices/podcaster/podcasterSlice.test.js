@@ -6,7 +6,7 @@ import {
 	setPodcastDetails,
 	setPodcasts,
 	startLoadingPodcast,
-} from '../../../../store/slices/podcaster/podcasterSlice';
+} from '../../../../src/store/slices/podcaster/podcasterSlice';
 import {
 	episodes,
 	initialState,

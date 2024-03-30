@@ -1,4 +1,4 @@
-import { formatTime } from '../../../podcaster/helpers/formatTime';
+import { formatTime } from '../../../src/podcaster/helpers/formatTime';
 
 describe('formatTime function', () => {
 	test('should correctly format exactly one minute', () => {

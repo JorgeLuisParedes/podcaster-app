@@ -1,4 +1,4 @@
-import { formatDate } from '../../../podcaster/helpers/formatDate';
+import { formatDate } from '../../../src/podcaster/helpers/formatDate';
 
 describe('formatDate function', () => {
 	test('should correctly format a typical date', () => {

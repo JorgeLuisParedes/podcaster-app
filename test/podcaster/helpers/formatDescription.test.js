@@ -1,4 +1,4 @@
-import { formatDescription } from '../../../podcaster/helpers/formatDescription';
+import { formatDescription } from '../../../src/podcaster/helpers/formatDescription';
 
 describe('formatDescription function', () => {
 	it('should wrap text without URLs into paragraphs', () => {
