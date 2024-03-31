@@ -90,7 +90,7 @@ export const getEpisode = podcastId => {
 		} else {
 			try {
 				const { data } = await episodeApi.get(
-					`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D20`
+					`lookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D500`
 				);
 				const { results } = JSON.parse(data.contents);
 				const [, ...episodes] = results;
